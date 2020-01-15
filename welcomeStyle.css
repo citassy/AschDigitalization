@@ -1,0 +1,134 @@
+@import "compass/css3";
+
+.flex-container {
+
+  height: 100vh; 
+  min-height:100vh; 
+  position: absolute; 
+  left: 5%;
+  right: 5%;
+ 
+  list-style: none;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 5%;
+  padding-right: 5%;
+  padding-left: 5%;
+  
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.flex-container-two {
+  
+  min-height: 100vh;
+  list-style: none;
+  flex-direction: column;
+  /*position: absolute; */
+  left: 5%;
+  right: 5%;
+
+ 
+  padding-right: 0%;
+  padding-left: 0%;
+  padding-top: 3%;
+  
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+
+
+}
+
+.flex-item {
+  /*background: tomato;*/
+  height: 100%;
+  min-height: 100%;
+  
+ /* line-height: 150px;*/
+  color: black;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: left;
+
+}
+.flex-item-two {
+  /*background: tomato;*/
+
+  width: 100%;
+
+ 
+ /* line-height: 150px;*/
+  color: black;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+
+}
+
+.flex-item-three {
+  /*background: tomato;*/
+  width: 48%;
+  padding-top:5%;
+
+ 
+ /* line-height: 150px;*/
+  color: black;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+
+}
+
+
+table {
+  table-layout: auto;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,  th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+  height: 100;
+}
+
+
+@keyframes disapear {
+	50% {
+		visibility: hidden;
+	} 
+	0%, 100% {
+		visibility: visible;
+	} 
+
+div.fixed {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  border: 3px solid #73AD21;
+}
+
+h {
+  font-size: 3em;
+}
+
+div.chart{
+  width: 45%; 
+  height: 300px;
+  display: inline-block;
+}

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<link rel = "stylesheet"
+type = "text/css"
+href = "welcomeStyle.css" />
+<html>
+<head>
+	<script type="text/javascript"
+	src="https://canvasjs.com/assets/script/canvasjs.min.js"/>
+</script>
+
+
+</head>
+<body>
+	<ul class = "flex-container-two" id = "mainFlex">
+		<li class="flex-item-two" id="welcomingInstructor" style="width:100%" >
+			<ul class="flex-container-two" id="welcomingInstructor" style="top:10%; bottom: 10%;" >
+				<li class="flex-item-two" id="starting">
+					<div class = "text" id="text-one">
+						<p style="font-size:2em;">A game by Mai Phuong Vu</p>
+						<p> Choose the number of players </p>
+						<select id="numPlayers">
+							<option value="None" selected>-- Select --</option>
+							<option value="ID002">2</option>
+							<option value="ID003">3</option>
+							<option value="ID004">4</option>
+							<option value="ID005">5</option>
+							<option value="ID006">6</option>
+							<option value="ID007">7</option>
+							<option value="ID008">8</option>
+							<option value="ID009">9</option>
+							<option value="ID0010">10</option>
+						</select>
+						<p> Choose the number of rounds </p>
+						<select id="numRounds">
+							<option value="None" selected>-- Select --</option>
+							<option value="ID002">1</option>
+							<option value="ID002">2</option>
+							<option value="ID003">3</option>
+							<option value="ID004">4</option>
+							<option value="ID005">5</option>
+							<option value="ID006">6</option>
+							<option value="ID007">7</option>
+							<option value="ID008">8</option>
+							<option value="ID009">9</option>
+							<option value="ID0010">10</option>
+							<option value="ID002">11</option>
+							<option value="ID002">12</option>
+							<option value="ID003">13</option>
+							<option value="ID004">14</option>
+							<option value="ID005">15</option>
+							<option value="ID006">16</option>
+							<option value="ID007">17</option>
+							<option value="ID008">18</option>
+							<option value="ID009">19</option>
+							<option value="ID0010">20</option>
+						</select>
+						<p>Click the button to get to the game instructions!</p>
+						<button type="button" id="toInstructionsButton" onclick="toInstructions()"> Next </button>
+						<p id="error" style="color: red; font-size: 2em;"> Please choose the number of players and rounds. </p> 
+					</div>
+				</li>
+			</ul>
+
+			<!--------------------------------------------- Instructions -------------------------------------->
+			<ul class="flex-container-two" id="welcoming" style="top:10%; bottom:10%;position: absolute;" >
+				<li class="flex-item-two" id="starting">
+					<div class = "text" id="text-one" style="text-align:center;">
+						<p class = "game-text"> Welcome to this game! </p>
+						
+						<p> In this game your visual judgements will be tested. </p>
+						<p id="numPl"> </p>
+						<p>When all the players are found, you can start the game. </p>
+						<p>You will first see three different circles, than one that is the same as one of the previous ones.Then, you will have 10 seconds to choose which one was the same as the last one.</p>
+						<p> For example you will see circle A, B, and C first, and then, you will see B again. In this case, you want to vote for "second" as B appeared as the second one.</p>
+						<p>You can see the other players' answers, and they can see yours. You <b>can change</b> your answers unlimited times in that 10 seconds. </p>
+						<p id="numRou"></p>
+						<p> Type your name below</p>
+						<p>Name: <input type="text" id="myText" name="fname" value=""><br></p>
+						<p>Click the button to begin the game!</p>
+						<button type="button" id="startButton" onclick="startButtonPressed()"> Let's Play! </button>
+
+					</div>
+				</li>
+			</ul>
+		</li>
+
+
+
+
+
+
+
+
+		<!--------------------------------------------- GAME -------------------------------------->
+		
+		<li class="flex-item-two" id="gameID" style="min-width: 100%; display:none;">
+			<ul class="flex-container-two" id="gameID" style="min-width: 100%;">
+				<li class="flex-item">
+
+					<h id="roundCounter" style="font-size:2em;"> </h>
+
+					<div id="timer" style="font-size:1.5em;"> Waiting for opponents... </div>
+
+					<div id="votingButtons">
+						<button type = "button" id="first" onclick="first()"> First </button>
+						<button type = "button" id="second" onclick="second()"> Second </button>
+						<button type = "button" id="third" onclick="third()"> Third </button>
+					</div>
+
+
+					<button type="button" id="readyButton" class = "button" onclick="readyPressed()"> Ready! </button>
+					<button type="button" id="endButton" class = "button" onclick="showResult()"> Results </button> 
+				</li>
+
+				<li class="flex-item">
+					<canvas id="myCanvas" width="500" height="400" style="border:1px solid #d3d3d3;"> </canvas>
+				</li>
+
+				<li class="flex-item" id="players">
+					<table id="playerTable">
+						<tr>
+							<th> Players</th>
+							<th> Answers </th>
+							<th> Ready? </th>
+						</tr>
+						<tr>
+							<td id=You> You </td>
+							<td id=YourAns>  </td>
+							<td id=ReadyYou>  </td>
+						</tr>
+					</table>
+				</li>
+			</ul>
+		</li>
+
+
+		<!--------------------------------------------- RESULTS ----------------------------------->
+		<li class="flex-item-two" id="results"  style="width:80%; display:none;">
+			<ul class="flex-container-two" id="results">
+				<li class="flex-item-two" id="buttons">
+					<button type = "button" id="redo" onclick="toGraphs()"> Graphs </button>
+					<button type = "button"  onclick="conclusion()"> What was this for? </button>
+					<button type = "button" id="redo" onclick="document.location.reload()"> Try again! </button>
+				</li>
+				<li class="flex-item-two" >
+					<h style="font-size:2em;"> Results and explanations</h>
+					<table id="resultTable">
+						<tr>
+							<th> Round </th>
+							<th> Correct answer </th>
+							<th> Other players' answer </th>
+							<th> Your answers </th>
+							<th> Your final answer </th>
+							<th> Result </th>
+						</tr>
+					</table>
+				</li>
+				<li class="flex-item-two" id="buttons">
+					<button type = "button" id="redo" onclick="toGraphs()"> Graphs </button>
+				</li>
+			</ul>
+		</li>
+
+		<!--------------------------------------------- GRAPHS ------------------------------------>
+		<li class="flex-item-two" id="graphs" style="width: 90%; display:none;">
+			<ul class="flex-container-two" id="graphs" >
+				<li class="flex-item-two" id="buttons">
+					<button type = "button" id="redo" onclick="toGraphs()"> Graphs </button>
+					<button type = "button"  onclick="conclusion()"> What was this for? </button>
+					<button type = "button" id="redo" onclick="document.location.reload()"> Try again! </button>
+				</li>
+				<li class="flex-item-two" id="graphsInner">
+					<h style="font-size:2em; align: center;"> Graphs</h><br/>
+					<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+				</li>
+				<li class="flex-item-two">
+					<button type = "button" id="redo" onclick="document.location.reload()"> Try again! </button>
+					<button type = "button"  onclick="conclusion()"> What was this for? </button>
+				</li>
+			</ul>
+		</li>
+
+
+		<!--------------------------------------------- CONCLUSION -------------------------------------->
+
+		<li class="flex-item-two" id="conclusion"  style="width:100%; display:none;">
+			<ul class="flex-container-two" id="conclusion"   style="width:100%">
+				<li class="flex-item-two" id="buttons">
+					<button type = "button" id="redo" onclick="toGraphs()"> Graphs </button>
+					<button type = "button"  onclick="conclusion()"> What was this for? </button>
+					<button type = "button" id="redo" onclick="document.location.reload()"> Try again! </button>
+				</li>
+				<li class="flex-item-two" >
+					<h style="font-size:2em;"> Original Experiment vs. This program</h>
+					<center><table/
+					 id="conclusionTable" style="width: 90%; min-width: 90%; ">
+						<tr >
+							<th style="vertical-align: top; width: 50%; min-width: 50%;"> 
+								<p style="font-size:1em; text-align: center;">
+									<u>The original study: </u>
+									<a href=http://www.uvm.edu/pdodds/teaching/courses/2009-08UVM-300/docs/others/everything/asch1955a.pdf> Opinions and Social Pressure (Asch 1955)</a> 
+								</p>
+							</th>
+
+							<th style="vertical-align: top; width: 50%; min-width: 50%;"> 
+								<p style="font-size:1em; text-align: center;">
+									<u>This program</u>
+
+								</p>
+							</th>
+						</tr>
+
+						<tr>
+							<th style="vertical-align: top;">
+								<p style="font-size:1em; text-align: center;">
+									<b>Introduction </b>
+								</p>
+								<ol style="text-align: left;">
+									<p> "Is [it] possible as a ruls to change a person's judgment of a situation or an object without
+										first changing his knowledge or assumptions about it[?]" (Asch)</p>
+								</ol> 
+							</th>
+
+							<th style="vertical-align: top;"> 
+								<p style="font-size:1em; text-align: center;">
+									<b>Purpose </b>	
+									<p>I decided to make Asch's experiment in a digital form, in order to be able to collect more data
+									and to be able to collect a larger amount of data</p>
+									<p>Having this experiment in a digital form, also allows us to see if the findings of 
+									Asch are replicable in the modern world where people use technology on a daily basis</p>
+									<p>Thus, we could have further findings about the influence of social pressure and norms through technology.</p>
+								</p>
+								<ol style="text-align: left;">
+								</ol> 
+
+							</th>
+						</tr>
+
+						<tr>
+							<th style="vertical-align: top;">
+								<p style="font-size:1em; text-align: center;">
+									<b> Method </b>
+								</p>
+								<ol style="text-align: left;">
+									<li>Cover Story
+										<ul>
+											<li> "psychological experiment" in visual judgment</li>
+										</ul>
+									</li>
+									<li>Participants and Materials
+										<ul>
+											<li>participants are 7-9 confederates and one subject in a room</li>
+											<li>sets of two cards</li>
+											<ul>
+												<li>the first card has one line (A) on it</li>
+												<li>the second card has three lines (B, C, D) on it</li>
+											</ul>
+											<li> "A" has the same length as one of "B", "C", or "D"</li>
+											<li> the two lines that do NOT have the same length as A, are different in length from A by .75-1.75 inches</li>
+											<ul>
+												<li> participants should be able to tell the correct answer</li>
+											</ul>
+										</ul>
+									</li>
+									<li>Design
+										<ul>
+											<li> IV: confederate tells the correct answer vs. incorrect answer</li>
+											<li> DV: if subject tells the correct answer vs. incorrect answer </li>
+											<li> within subject design </li>
+											<li> 18 trials </li>
+										</ul>
+									</li>
+									<li>Procedure
+										<ul>
+											<li>participants tell which line (B, C, or D) they think matches with A in the order as they were seated (unanonymous)</li>
+											<li>round 1 and 2: everyone chooses the correct line</li>
+											<li>rounds afterwards, confederates either tell the same correct answer, or the same incorrect answer</li>
+											<li>in ~12 out of 18 trials, confederates told an incorrect answer</li>
+											<li>suspicious participants were excluded from the study</li>
+											<li>participants were interviewed after the experiment</li>
+
+										</ul>
+									</li>
+								</ol> 
+							</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+							<th style="vertical-align: top;">  
+								<p style="font-size:1em; text-align: left;">
+									<b><center>How does this program work? And Why? </center></b>
+									<ol style="text-align: left;">
+										<li>similarly to the original experiment, participants are led to believe that this is a game about visual judgements</li>
+										<li>subject can choose the number of players and number of rounds</li>
+										<p>I chose to have it before the welcoming message, so if an experimenter would like to use
+										this program, they could have the option to preset the conditions as they want to.</p>
+										<p>That is also the reason why the settings is the only "page" that one cannot go back to unless they reload the page.</p>
+										<li> players appear at random times (ranging from 0-13 seconds); their name is randomly selected from a list of 89 names</li>
+										<li>once all players are found, the S can push the "ready" button; the word "Ready" appears next to the names of players who are ready </li>
+										<li>for the confederates, the "Ready" button appears in random order and time (.7-4 seconds)</li>
+										<li>once there is "Ready" next to everyone's name, the timer counts down from 3 to 0 and begins the game</li>
+										<li> four circles are shown, paired with label (1, 2, 3, ?) </li>
+										<ul>
+											<li> first three are different sized, fourth one is similar to one of the other -- randomly chosen by the program </li>
+											<li> The radius of the circles vary and are randomly chosen from [5, 20, 35, 50, 75, 90] - the minimum of 15 difference between each of them makes it more obvious which one is the correct answer </li>
+										</ul>
+										<li> then, S has 10 seconds to choose between buttons labeled "first", "second", and "third" </li>
+										<ul>
+											<li> S can revote as many times as they want </li>
+											<li> S can se the answer of C </li>
+											<li> C chooses a wrong answer 66% of the times </li>
+											<li> C answers in random orders at random times (.7-5 seconds) -- this allows the subject to see and revote in the last 5 seconds if wanted </li>
+										</ul>
+										<li> then they repeat the game (from point 3) until the amount of rounds chosen </li>
+										<li> after finishing, they can view their results in a table </li>
+										<ul>
+											<li> # of round </li>
+											<li> what was the correct answer</li>
+											<li> what was C's answer </li>
+											<li> S's answer </li>
+											<li> Results (which can be: "invalid" - if S did not vote; "answered correctly"; "answered as others" ) </li>
+										</ul>
+										<li> they can view graphs of each round </li>
+										<ul>
+											<li> x-axis: time at which someone voted</li>
+											<li> y-axis: what they voted for (1, 2, 3)</li>
+											<li> depicts the answers and times at which C and S answered </li>
+											<li> allows to easily see who if S answered correctly/incorrectly before/after C answered </li>
+										</ul>
+										<li> then, they can read the debriefing, or play another one </li>
+
+
+
+
+
+										
+									</ol>
+								</p>
+								<ol style="text-align: left;">
+								</ol> 
+							</th>
+						</tr>
+
+						<tr>
+							<th style="vertical-align: top;">
+								
+								<ol style="text-align: left;">
+									<li>confused participants had two options
+										<ul>
+											<li>act independently - go against the majority</li>
+											<li>follow the norm - go along with the majority</li>
+										</ul>
+									</li>
+									<li>
+										many followed the majority
+										<ul>
+											<li>reasons for these have not been investigated</li>
+											<li>under normal circumstances: subjects made mistakes <1% of the time</li>
+											<li>under group pressure: subjects went along with majority 36.8% of the selections</li>
+										</ul>
+									</li>
+									<li> it varied by individuals how often they agreed with the majority
+										<ul>
+											<li> only possible reasonings are from the interviews conducted after the study</li>
+											<li> independent people had a better "capacity to recover from doubt and to reestablish their equilibrium" and found it to be 
+											"their obligation to call the play as they saw it" (Asch 1955) </li>
+											<li> norm-following people thought that they were wrong and the others must be right; and they did not want to 'spoil' the researchers experiment </li>
+											<li> norm-following people thought others were also following the first person and / or they were "victims of an optical illusion" (Asch 1955)</li>
+										</ul>
+									</li>
+									<li> individual subjects' performances were consistent</li>
+
+								</ol> 
+							</th>
+
+							<th style="vertical-align: top;"> 
+								<p style="font-size:1em; text-align: center;">
+									
+								</p>
+								<ol style="text-align: left;">
+								</ol> 
+							</th>
+						</tr>
+
+						<tr>
+							<th style="vertical-align: top;">
+								<p style="font-size:1em; text-align: center;">
+									<b>Studies since then... </b>
+								</p>
+								<ol style="text-align: left;">
+									<li> number of confederates varied -- 1 to 15 people 
+										<ul>
+											<li> more participants --> more likely to follow the norm</li>
+											<li> % when participants followed the norm does not increase much after confederates = 3</li>
+											<li> size of group matters up to a point</li>
+										</ul>
+									</li>
+									<li> disturbance of the majority's unanimity -- support of a 'truthful' participant
+										<ul>
+											<li> participants followed the norm </li>
+										</ul>
+									</li>
+								</ol> 
+							</th>
+
+							<th style="vertical-align: top;"> 
+								<p style="font-size:1em; text-align: center;">
+									<b> Strength / Weaknesses / Improvements </b>
+									<ol style="text-align: left;">
+										<li> Strength
+											<ul>
+												<li> can be done anywhere -- easily distributable</li>
+												<li> can control different variables (number of rounds and players)</li>
+												<li> can collect more data (time at which one voted; if they changed, etc..) </li>
+											</ul>
+										</li>
+										<li> Weaknesses
+											<ul>
+												<li> might crash with too much data (too many players or rounds) </li>
+												<li> is not as personal </li>
+												<li> cannot collect data of all of S behavior and expressions </li>
+											</ul>
+										</li>
+										<li> Improvements
+											<ul>
+												<li> make it more real life like </li>
+												<li> optimize the algorithms more </li>
+												<li> could calculate and depict more data </li>
+												<li> improve accessibility to different pages </li>
+											</ul>
+										</li>
+									</p>
+									<ol style="text-align: left;">
+									</ol> 
+								</th>
+							</tr>
+
+
+						</table></center>
+					</li>
+					<li class="flex-item-two">
+						<button type = "button" id="redo" onclick="document.location.reload()"> Try again! </button>
+
+					</li>
+
+				</ul>
+			</li>
+
+
+		</ul>
+
+
+
+
+
+	</div>
+	<!--</div>-->
+	<script src="tablesJS.js"></script>
+	<script src="graphJS.js"></script>
+	<script src="gameJS.js"></script>
+	<script src="basicJS.js"></script>
+	<script src="timerJS.js"></script>
+	<script src="buttonJS.js"></script>
+	<script src="confederatesJS.js"></script>
+	<script src="circleJS.js"></script>
+
+
+
+
+</body>
+</html>
